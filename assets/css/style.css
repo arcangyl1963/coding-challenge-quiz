@@ -1,0 +1,124 @@
+ header {
+     display: flex;
+     color: #9c16d5;
+     position: relative;
+     float: right;
+ }
+ h4 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 2em;
+ }
+ 
+ h1 {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 5rem;
+    font-weight: 900;
+    text-align: center;
+}
+ul {
+    list-style: none;
+}
+li {
+    font-family:'Cambria', serif;
+    font-size: 1.5em;
+}
+input[type=radio] {
+    border: 0px;
+    width: 20px;
+    height: 2em;
+}
+p {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.5em;
+}
+/* Quiz Classes */
+ .quizContainer {
+     display: flex;
+    background-color: white;
+    border-radius: 6px;
+    border: 6px solid darkviolet;
+    width: 60%;
+    margin: auto;
+    padding-top: 5px;
+    flex-direction: column;
+    /*-moz-box-shadow: 10px 10px 5px #888;
+    -webkit-box-shadow: 10px 10px 5px #888;
+    box-shadow: 10px 10px 5px #888;*/
+    position: relative;
+}
+.quizcontainer #quiz1 p
+{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#startBtn {
+    display: flex;
+    box-shadow: 3px 3px 5px #888;
+    border-radius: 6px;
+    /*width: 150px;*/
+    height: 40px;
+    text-align: center;
+    background-color: #9c16d5;
+    /*clear: both;*/
+    color: white;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0 auto;
+	font-size:1rem;
+	font-weight:bold;
+    padding-top: 5px;
+	align-items: center;
+    justify-content: center;
+}
+
+.question {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 2.5em;
+	font-weight:bold;
+    width: 100%;
+    height: auto;
+    margin: auto;
+    border-radius: 6px;
+    /* background-color: #f3dc45; */
+    text-align: center;
+}
+.quizMessage {
+    background-color: peachpuff;
+    border-radius: 6px;
+    width: 20%;
+    margin: auto;
+    text-align: center;
+    padding: 5px;
+	font-size:20px;
+	font-weight:bold;
+    font-family:'Gabriola', serif;
+    color: red;
+	position:absolute;
+	top:80%;
+	left:40%;
+}
+.choiceList {
+    font-family: 'Arial', serif;
+    color: #ed12cd;
+	font-size:15px;
+	font-weight:bold;
+}
+#answerStatus {
+    display: flex;
+    width: 30%;
+    height: auto;
+    border-radius: 6px;
+    background-color: white;
+    margin: 0 auto;
+	color:darkslategray;
+    text-align: center;
+    text-decoration: darkslategray;
+	font-size:20px;
+    font-family:'Verdana', serif;
+	font-weight:bold;
+    align-items: center;
+    justify-content: center;
+}
+/* End of Quiz Classes */
