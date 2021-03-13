@@ -27,42 +27,48 @@
       score = 0,
       answerLocked = false;
 
+
+
     base.methods = {
-      init: function() {
+      init: function () {
         base.methods.setup();
 
-        $(document).on('click', startButton, function(e) {
+        $(document).on('click', startButton, function (e) {
           e.preventDefault();
           base.methods.start();
-          base.methods.countDown();
         });
 
-        $(document).on('click', homeButton, function(e) {
+        $(document).on('click', homeButton, function (e) {
           e.preventDefault();
           base.methods.home();
         });
 
-        $(document).on('click', '.answers a', function(e) {
+        $(document).on('click', '.answers a', function (e) {
           e.preventDefault();
           base.methods.answerQuestion(this);
         });
 
-        $(document).on('click', '#quiz-next-btn', function(e) {
+        $(document).on('click', '#quiz-next-btn', function (e) {
           e.preventDefault();
           base.methods.nextQuestion();
         });
 
-        $(document).on('click', '#quiz-finish-btn', function(e) {
+        $(document).on('click', '#quiz-finish-btn', function (e) {
           e.preventDefault();
           base.methods.finish();
+        
         });
 
-        $(document).on('click', '#quiz-restart-btn, #quiz-retry-btn', function(e) {
-          e.preventDefault();
-          base.methods.restart();
-        });
+        $(document).on(
+          'click',
+          '#quiz-restart-btn, #quiz-retry-btn',
+          function (e) {
+            e.preventDefault();
+            base.methods.restart();
+          }
+        );
       },
-      setup: function() {
+      setup: function () {
         var quizHtml = '';
 
         if (base.options.counter) {
@@ -70,12 +76,17 @@
         }
 
         quizHtml += '<div id="questions">';
-        $.each(questions, function(i, question) {
+        $.each(questions, function (i, question) {
           quizHtml += '<div class="question-container">';
           quizHtml += '<p class="question">' + question.q + '</p>';
           quizHtml += '<ul class="answers">';
-          $.each(question.options, function(index, answer) {
-            quizHtml += '<li><a href="#" data-index="' + index + '">' + answer + '</a></li>';
+          $.each(question.options, function (index, answer) {
+            quizHtml +=
+              '<li><a href="#" data-index="' +
+              index +
+              '">' +
+              answer +
+              '</a></li>';
           });
           quizHtml += '</ul>';
           quizHtml += '</div>';
@@ -93,8 +104,10 @@
         quizHtml += '<p id="quiz-response"></p>';
         quizHtml += '<div id="quiz-buttons">';
         quizHtml += '<a href="#" id="quiz-next-btn">' + nextButtonText + '</a>';
-        quizHtml += '<a href="#" id="quiz-finish-btn">' + finishButtonText + '</a>';
-        quizHtml += '<a href="#" id="quiz-restart-btn">' + restartButtonText + '</a>';
+        quizHtml +=
+          '<a href="#" id="quiz-finish-btn">' + finishButtonText + '</a>';
+        quizHtml +=
+          '<a href="#" id="quiz-restart-btn">' + restartButtonText + '</a>';
         quizHtml += '</div>';
         quizHtml += '</div>';
 
@@ -106,8 +119,10 @@
         $(resultsScreen).hide();
         $('#quiz-controls').hide();
       },
-      start: function() {
-        base.$el.removeClass('quiz-start-state').addClass('quiz-questions-state');
+      start: function () {
+        base.$el
+          .removeClass('quiz-start-state')
+          .addClass('quiz-questions-state');
         $(startScreen).hide();
         $('#quiz-controls').hide();
         $('#quiz-finish-btn').hide();
@@ -117,7 +132,7 @@
         $('.question-container:first-child').show().addClass('active-question');
         base.methods.updateCounter();
       },
-      answerQuestion: function(answerEl) {
+      answerQuestion: function (answerEl) {
         if (answerLocked) {
           return;
         }
@@ -146,10 +161,14 @@
         $('#quiz-controls').fadeIn();
 
         if (typeof base.options.answerCallback === 'function') {
-          base.options.answerCallback(currentQuestion, selected, questions[currentQuestionIndex]);
+          base.options.answerCallback(
+            currentQuestion,
+            selected,
+            questions[currentQuestionIndex]
+          );
         }
       },
-      nextQuestion: function() {
+      nextQuestion: function () {
         answerLocked = false;
 
         $('.active-question')
@@ -173,13 +192,16 @@
           base.options.nextCallback();
         }
       },
-      gameOver: function(response) {
+      gameOver: function (response) {
         // if gameover screen not in DOM, add it
         if ($(gameOverScreen).length === 0) {
           var quizHtml = '';
           quizHtml += '<div id="' + gameOverScreen.substr(1) + '">';
           quizHtml += '<p id="quiz-gameover-response"></p>';
-          quizHtml += '<p><a href="#" id="quiz-retry-btn">' + restartButtonText + '</a></p>';
+          quizHtml +=
+            '<p><a href="#" id="quiz-retry-btn">' +
+            restartButtonText +
+            '</a></p>';
           quizHtml += '</div>';
           base.$el.append(quizHtml);
         }
@@ -189,8 +211,10 @@
         $('#quiz-finish-btn').hide();
         $(gameOverScreen).show();
       },
-      finish: function() {
-        base.$el.removeClass('quiz-questions-state').addClass('quiz-results-state');
+      finish: function () {
+        base.$el
+          .removeClass('quiz-questions-state')
+          .addClass('quiz-results-state');
         $('.active-question').hide().removeClass('active-question');
         $('#quiz-counter').hide();
         $('#quiz-response').hide();
@@ -198,14 +222,16 @@
         $('#quiz-next-btn').hide();
         $('#quiz-restart-btn').show();
         $(resultsScreen).show();
-        var resultsStr = base.options.resultsFormat.replace('%score', score).replace('%total', numQuestions);
+        var resultsStr = base.options.resultsFormat
+          .replace('%score', score)
+          .replace('%total', numQuestions);
         $('#quiz-results').html(resultsStr);
 
         if (typeof base.options.finishCallback === 'function') {
           base.options.finishCallback();
         }
       },
-      restart: function() {
+      restart: function () {
         base.methods.reset();
         base.$el.addClass('quiz-questions-state');
         $('#questions').show();
@@ -213,7 +239,7 @@
         $('.question-container:first-child').show().addClass('active-question');
         base.methods.updateCounter();
       },
-      reset: function() {
+      reset: function () {
         answerLocked = false;
         currentQuestion = 1;
         score = 0;
@@ -228,7 +254,7 @@
         $('#quiz-counter').hide();
         $('.active-question').hide().removeClass('active-question');
       },
-      home: function() {
+      home: function () {
         base.methods.reset();
         base.$el.addClass('quiz-start-state');
         $(startScreen).show();
@@ -237,35 +263,39 @@
           base.options.homeCallback();
         }
       },
-      updateCounter: function() {
-        var countStr = base.options.counterFormat.replace('%current', currentQuestion).replace('%total', numQuestions);
+      updateCounter: function () {
+        var countStr = base.options.counterFormat
+          .replace('%current', currentQuestion)
+          .replace('%total', numQuestions);
         $('#quiz-counter').html(countStr);
       },
-      countDown: function() {
-        var seconds = 59;
-        function onTimer() {
-          var myCounter = document.getElementById("timerCounter");
-          seconds--;
-          myCounter.innerHTML =
-            "0:" + (seconds < 10 ? "0" : "") + String(seconds);
-          if (seconds > 0) {
-            setTimeout(onTimer, 1000);
-          } else {  
-            document.getElementById("timerCounter").innerHTML = "0:00";
-          }
-        }
-        onTimer(); 
-      },
-      cdPause: function() {
-       
-        function pauseTimer() {
-          let finBtn = $('#quiz-finish-btn');
-          clearTimeout(onTimer, 1000)
-        }
-        $(finBtn).click(pauseTimer)
-      }
-      
-  };
+      // countDown: function () {
+        // var seconds = 59;
+        // function onTimer() {
+        //   var myCounter = document.getElementById('timerCounter');
+        //   seconds--;
+        //   myCounter.innerHTML =
+        //     '0:' + (seconds < 10 ? '0' : '') + String(seconds);
+
+        //   if (seconds > 0) {
+        //     var toID = setTimeout(onTimer, 1000);
+        //     //  console.log(toID);
+        //   } else {
+        //     document.getElementById('timerCounter').innerHTML = '0:00';
+        //   }
+        // }
+
+        // onTimer();
+      // },
+      // cdPause: function() {
+      //   pauseTimer();
+      // }
+    };
+  
+  //   function pauseTimer() {
+  //   let finBtn = $('#quiz-finish-btn');
+  //   $(finBtn).click(clearTimeout(toID));
+  // }
 
     base.methods.init();
   };

@@ -59,10 +59,31 @@ const myQuiz = [
       'correctResponse': 'Correct!',
       'incorrectResponse': 'Wrong!'
     }
-  ]
+  ];
 
+  var myCounter = document.getElementById('timerCounter');
+  var seconds = 60;
+  var timerID = setTimeout(onTimer, 1000);
+  function onTimer() {
+    timerID
+    if (seconds > -1) {
+      console.log(timerID)
+      myCounter.innerHTML = seconds + ' seconds remaining';
+      seconds--;
+    // } else {
+    //     $('#quiz-finish-btn').click(clearInterval(timerID));
+    //     console.log('Finish button clicked');
+    }
+  };
+
+  $()
+  // function pauseTimer() {
+  //   $('#quiz-finish-btn').click(clearInterval(timerID));
+  //   console.log('Finish button clicked');
+  // };
   //Start the quiz
   
   $('#quiz').quiz({
     questions: myQuiz
   });
+
