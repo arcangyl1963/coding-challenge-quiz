@@ -1,3 +1,4 @@
+//Construct my questions array for the quiz
 const myQuiz = [
     {
       'q': '1. Commonly used data types DO NOT include:',
@@ -61,26 +62,27 @@ const myQuiz = [
     }
   ];
 
-  var myCounter = document.getElementById('timerCounter');
-  var seconds = 60;
-  var timerID = setTimeout(onTimer, 1000);
-  function onTimer() {
-    timerID
-    if (seconds > -1) {
-      console.log(timerID)
-      myCounter.innerHTML = seconds + ' seconds remaining';
-      seconds--;
-    // } else {
-    //     $('#quiz-finish-btn').click(clearInterval(timerID));
-    //     console.log('Finish button clicked');
-    }
-  };
 
-  $()
-  // function pauseTimer() {
-  //   $('#quiz-finish-btn').click(clearInterval(timerID));
-  //   console.log('Finish button clicked');
-  // };
+// Start the timer with start button
+  var seconds = 60;
+  function onTimer() {
+    var myCounter = document.getElementById('timerCounter');
+    myCounter.innerHTML = seconds + ' seconds remaining';
+    seconds--;
+    if (seconds > 0) {
+      timerID = setTimeout(onTimer, 1000);
+    }
+  }
+//pause the timer
+  function pauseTimer() {
+    clearTimeout(timerID);
+  }
+  function decTimer() {
+    let currentTime = seconds;
+    let newTime = currentTime - 10;
+    console.log(newTime)
+}
+decTimer();
   //Start the quiz
   
   $('#quiz').quiz({

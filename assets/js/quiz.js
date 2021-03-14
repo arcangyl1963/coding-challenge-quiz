@@ -120,6 +120,7 @@
         $('#quiz-controls').hide();
       },
       start: function () {
+        onTimer();
         base.$el
           .removeClass('quiz-start-state')
           .addClass('quiz-questions-state');
@@ -152,6 +153,7 @@
           $answerEl.addClass('incorrect');
           response = questions[currentQuestionIndex].incorrectResponse;
           if (!base.options.allowIncorrect) {
+            decTimer();
             base.methods.gameOver(response);
             return;
           }
@@ -212,6 +214,7 @@
         $(gameOverScreen).show();
       },
       finish: function () {
+        pauseTimer();
         base.$el
           .removeClass('quiz-questions-state')
           .addClass('quiz-results-state');
@@ -269,34 +272,7 @@
           .replace('%total', numQuestions);
         $('#quiz-counter').html(countStr);
       },
-      // countDown: function () {
-        // var seconds = 59;
-        // function onTimer() {
-        //   var myCounter = document.getElementById('timerCounter');
-        //   seconds--;
-        //   myCounter.innerHTML =
-        //     '0:' + (seconds < 10 ? '0' : '') + String(seconds);
-
-        //   if (seconds > 0) {
-        //     var toID = setTimeout(onTimer, 1000);
-        //     //  console.log(toID);
-        //   } else {
-        //     document.getElementById('timerCounter').innerHTML = '0:00';
-        //   }
-        // }
-
-        // onTimer();
-      // },
-      // cdPause: function() {
-      //   pauseTimer();
-      // }
-    };
-  
-  //   function pauseTimer() {
-  //   let finBtn = $('#quiz-finish-btn');
-  //   $(finBtn).click(clearTimeout(toID));
-  // }
-
+  }
     base.methods.init();
   };
 
