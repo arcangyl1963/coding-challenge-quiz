@@ -58,6 +58,11 @@
           base.methods.finish();
         
         });
+        $(document).on('click', '#initial-enter-btn', function (e) {
+          e.preventDefault();
+          base.methods.highscores();
+        
+        });
 
         $(document).on(
           'click',
@@ -98,6 +103,8 @@
           quizHtml += '<div id="' + resultsScreen.substr(1) + '">';
           quizHtml += '<p id="quiz-results"></p>';
           quizHtml += '</div>';
+          quizHtml += '<input type="text" id="initials" name="initials" placeholder="Enter your initials here">';
+          quizHtml += '<button id="initial-enter-btn" type="button">Enter</button>'
         }
 
         quizHtml += '<div id="quiz-controls">';
@@ -118,6 +125,8 @@
         $(gameOverScreen).hide();
         $(resultsScreen).hide();
         $('#quiz-controls').hide();
+        $('#initials').hide();
+        $('#initial-enter-btn').hide();
       },
       start: function () {
         onTimer();
@@ -152,8 +161,12 @@
         } else {
           $answerEl.addClass('incorrect');
           response = questions[currentQuestionIndex].incorrectResponse;
+            if (seconds >= 10) {
+            seconds -= 10;
+            } else {
+              seconds = seconds;
+            }
           if (!base.options.allowIncorrect) {
-            decTimer();
             base.methods.gameOver(response);
             return;
           }
@@ -224,11 +237,14 @@
         $('#quiz-finish-btn').hide();
         $('#quiz-next-btn').hide();
         $('#quiz-restart-btn').show();
+        $('#initials').show();
+        $('#initial-enter-btn').show();
         $(resultsScreen).show();
         var resultsStr = base.options.resultsFormat
           .replace('%score', score)
-          .replace('%total', numQuestions);
-        $('#quiz-results').html(resultsStr);
+          .replace('%total', numQuestions)
+          .replace('%seconds', (seconds + 1));
+          $('#quiz-results').html(resultsStr);
 
         if (typeof base.options.finishCallback === 'function') {
           base.options.finishCallback();
@@ -237,15 +253,19 @@
       restart: function () {
         base.methods.reset();
         base.$el.addClass('quiz-questions-state');
+        $('#initials').hide();
+        $('#initial-enter-btn').hide();
         $('#questions').show();
         $('#quiz-counter').show();
         $('.question-container:first-child').show().addClass('active-question');
         base.methods.updateCounter();
+        onTimer();
       },
       reset: function () {
         answerLocked = false;
         currentQuestion = 1;
         score = 0;
+        seconds = 60;
         $('.answers a').removeClass('correct incorrect');
         base.$el.removeClass().addClass('quiz-container');
         $('#quiz-restart-btn').hide();
@@ -272,6 +292,14 @@
           .replace('%total', numQuestions);
         $('#quiz-counter').html(countStr);
       },
+      highscores: function () {
+        var pInitials = $('#initials').val();
+        var pScore = seconds;
+        var pData = [pInitials, pScore];
+        localStorage.setItem('playerData', JSON.stringify(pData));
+        var players = JSON.parse(localStorage.getItem('playerData')) || [];
+        console.log(players);
+      },
   }
     base.methods.init();
   };
@@ -284,7 +312,7 @@
     startButton: '#quiz-start-btn',
     homeButton: '#quiz-home-btn',
     resultsScreen: '#quiz-results-screen',
-    resultsFormat: 'You got %score out of %total correct!',
+    resultsFormat: 'You got %score out of %total correct with %seconds seconds remaining!',
     gameOverScreen: '#quiz-gameover-screen',
     nextButtonText: 'Next',
     finishButtonText: 'Finish',
