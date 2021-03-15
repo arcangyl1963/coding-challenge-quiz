@@ -62,7 +62,7 @@ const myQuiz = [
     }
   ];
 
-
+  
 // Start the timer with start button
   var seconds = 60;
   function onTimer() {
@@ -76,13 +76,18 @@ const myQuiz = [
 //pause the timer
   function pauseTimer() {
     clearTimeout(timerID);
-  }
-  function decTimer() {
-    let currentTime = seconds;
-    let newTime = currentTime - 10;
-    console.log(newTime)
-}
-decTimer();
+  };
+
+//Store player initials in local storage
+// $('#initial-enter-btn').click( 
+//     function() {
+//       var pInitials = $('#initials').val();
+//       alert(pInitials)
+//     });
+   
+  // localStorage.setItem('playerInitials', JSON.stringify(pInitials));
+
+
   //Start the quiz
   
   $('#quiz').quiz({
