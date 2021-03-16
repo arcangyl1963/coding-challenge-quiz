@@ -4,7 +4,7 @@
 
 The assignment for this project was to create a dynamic quiz application with a countdown timer and a series of questions on the subject of coding. The UI was to feature multiple choice answers the player could click on to select. The player may only select one answer as once clicked the question is locked. Wrong answer selections were to penalize the player by removing 10 seconds from the timer. Upon completion the player would click the Finish button and be shown their final score. A high score panel was to be presented where the user could enter their initials next to their score with that data stored on a High Scores page.
 
-I was not able to complete all of the functionality before deadline, but will continue to work on completing all of the requested features for the quiz application in the next few days.
+All feature requests have been implemented for both desktop and mobile device screens.
 
 ## Installation
 

@@ -320,6 +320,8 @@
         localStorage.setItem('playerData', (playerHist));
         var playerList = (localStorage.getItem('playerData'));
         $('li').text(playerList);
+        $('#quiz-restart-btn').show();
+
       },
   }
     base.methods.init();
