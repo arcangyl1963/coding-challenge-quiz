@@ -115,6 +115,12 @@
           '<a href="#" id="quiz-finish-btn">' + finishButtonText + '</a>';
         quizHtml +=
           '<a href="#" id="quiz-restart-btn">' + restartButtonText + '</a>';
+        quizHtml += '<div id="quiz-hs" class="card">';
+        quizHtml += '<h2 id="hs-head">High Scores:</h2>'
+        quizHtml += '<ol id="quiz-hs-list" class="card-list">';
+        quizHtml += '<li id="hs-line">';
+        quizHtml += '</ol>';
+        quizHtml += '</div>';
         quizHtml += '</div>';
         quizHtml += '</div>';
 
@@ -127,6 +133,7 @@
         $('#quiz-controls').hide();
         $('#initials').hide();
         $('#initial-enter-btn').hide();
+        $('#quiz-hs').hide();
       },
       start: function () {
         onTimer();
@@ -236,7 +243,7 @@
         $('#quiz-response').hide();
         $('#quiz-finish-btn').hide();
         $('#quiz-next-btn').hide();
-        $('#quiz-restart-btn').show();
+        $('#quiz-restart-btn').hide();
         $('#initials').show();
         $('#initial-enter-btn').show();
         $(resultsScreen).show();
@@ -255,6 +262,7 @@
         base.$el.addClass('quiz-questions-state');
         $('#initials').hide();
         $('#initial-enter-btn').hide();
+        $('#quiz-hs').hide();
         $('#questions').show();
         $('#quiz-counter').show();
         $('.question-container:first-child').show().addClass('active-question');
@@ -293,12 +301,25 @@
         $('#quiz-counter').html(countStr);
       },
       highscores: function () {
+        //Add the ordered list to HTML
+        var quizHtml = ''
+        quizHtml += '<div id="quiz-hs" class="card">';
+        quizHtml += '<h2 id="hs-head">High Scores:</h2>'
+        quizHtml += '<ol id="quiz-hs-list" class="card-list">';
+        quizHtml += '<li id="hs-line">';
+        quizHtml += '</ol>';
+        quizHtml += '</div>';
+        base.$el.append(quizHtml);
+      // Store initials and scores in local storage
         var pInitials = $('#initials').val();
-        var pScore = seconds;
-        var pData = [pInitials, pScore];
-        localStorage.setItem('playerData', JSON.stringify(pData));
-        var players = JSON.parse(localStorage.getItem('playerData')) || [];
-        console.log(players);
+        var pScore = seconds + 1;
+        var pData = pInitials + ' : ' + pScore;
+        var players = localStorage.setItem('players', (pData));
+        var playerHist = (localStorage.getItem('players'));
+        playerHist.concat(players);
+        localStorage.setItem('playerData', (playerHist));
+        var playerList = (localStorage.getItem('playerData'));
+        $('li').text(playerList);
       },
   }
     base.methods.init();

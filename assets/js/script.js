@@ -78,16 +78,6 @@ const myQuiz = [
     clearTimeout(timerID);
   };
 
-//Store player initials in local storage
-// $('#initial-enter-btn').click( 
-//     function() {
-//       var pInitials = $('#initials').val();
-//       alert(pInitials)
-//     });
-   
-  // localStorage.setItem('playerInitials', JSON.stringify(pInitials));
-
-
   //Start the quiz
   
   $('#quiz').quiz({
